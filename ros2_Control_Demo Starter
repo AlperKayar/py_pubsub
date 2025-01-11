@@ -1,0 +1,45 @@
+DATE: 28/12/2024
+
+1)Start diffbot demo:
+ros2 launch ros2_control_demo_example_2 diffbot.launch.py
+
+2)Start teleop_keyboard and Map cmd_vel to alper!!!  (Yes alper :) )
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r cmd_vel:=/alper
+
+3)Then use twist stamper to remap it back to cmd_vel
+ros2 run twist_stamper twist_stamper --ros-args -r cmd_vel_in:=alper -r cmd_vel_out:=cmd_vel
+
+KEYBOARD WORKS LIKE MAGIC :)  - ONLY on Humble though..
+
+
+-------------------------
+OOOOOKEY NOW THE BIG PART   THE JOYSTIC WORKS TOOOOO!!!!!!
+
+This was one part of the problem: the button configuration is different on my Joystick. SO you need to chnage the joystick.yaml file with the following lines:
+
+    enable_button: 4    #original was 6
+    enable_turbo_button: 5   #original was 7
+    
+4) Using JOYPAD - After making the update on yaml file as above run this:
+ros2 launch articubot_one joystick.launch.py
+
+5) Then run the stamper as previously
+ros2 run twist_stamper twist_stamper --ros-args -r cmd_vel_in:=cmd_vel_joy -r cmd_vel_out:=cmd_vel    
+
+---------------------------------------------------------------------
+DATE 05/01/2025 --------- FINALLY -----------------------------------
+
+After months (approx 6) of hardwork. Managed to move the robot using the Diffdrive_arduino package by Josh. You have to download Humble branch and run it on 22.04 Ubuntu Mate. 
+Thinks to check:
+1. Serial Port of the Arduino
+2. Is Arduino chmod 7777 ? make sure you do it 
+3. check the code - diffbot.ros2_control.xacro file under the ros2_control folder should have device set correctly:
+            <param name="device">/dev/ttyUSB0</param>     --------- raspberry pi chnages arduino port randomly. Sometime 1 sometimes 0. check that and chnage the code line above correct.
+4. check the /cmd_vel.  This code do not want stamped messaages. I have removed this from my joy launch file...
+
+
+1)To run this I started the diffdrive on Pi as follows:
+ros2 diffdrive_arduino diffbot.launch.py
+2)Then I ran the joy on the dev machine. 
+ros2 launch diffdrive_arduino diffbot_joy_come_on.launch.py 
+

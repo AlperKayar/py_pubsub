@@ -1,0 +1,16 @@
+
+ros2 launch turtlebot3_gazebo turtlebot3_house.launch.py
+
+
+ros2 run turtlebot3_teleop teleop_keyboard
+
+
+Joystick:)
+
+FIrst Start the JOstick Node.
+ros2 launch teleop_twist_joy teleop-launch.py joy_config:='xbox'
+
+Then run turtlebot with CMD_Vel value re-mapped.
+ros2 run turtlesim turtlesim_node --ros-args --remap /turtle1/cmd_vel:=cmd_vel
+
+

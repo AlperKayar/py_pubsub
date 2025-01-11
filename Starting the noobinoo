@@ -1,0 +1,57 @@
+Camera start:
+
+ros2 run v4l2_camera v4l2_camera_node --ros-args -p image_size:="[640,480]" -p camera_frame_id:=camera_link_optical
+
+
+to see the image:
+
+ros2 run rqt_image_view rqt_image_view
+
+
+
+diff drive teleop starter
+
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r cmd_vel:=/diffbot_base_controller/cmd_vel_unstamped
+
+
+diffdrive motor starter
+
+ros2 launch diffdrive_arduino diffbot.launch.py serial_port:=ttyUSB1
+
+
+
+old school serial ros code:
+
+serial motor driver starter
+ros2 run serial_motor_demo driver --ros-args -p serial_port:=/dev/ttyUSB1 -p baud_rate:=57600 -p loop_rate:=30 -p encoder_cpr:=2660
+ros2 run serial_motor_demo driver --ros-args -p serial_port:=/dev/ttyUSB0 -p boud_rate:=57600 -p loop_rate:=30 -p encoder_cpr:=1980
+
+
+driver gui
+ros2 run serial_motor_demo gui
+
+
+
+Lidar:
+Start Lidar:
+1. Check lidar Serial Port: 
+    ls -l /dev|grep USB   --->  will give you ttyUSB1 or ttyUSB0
+    sudo chmod 777 /dev/ttyUSBx  --> based on above info replace x
+    may be you need to add your user to dialout group (google it on how to)
+ros2 launch sllidar_ros2 view_sllidar_c1_launch.py serial_port:=/dev/ttyUSB1  (launches Rviz)
+
+pi@pi-desktop:~/Desktop$ 
+
+
+
+ros2 launch articubot_one launch_sim.launch.py worlds:=src/articubot_one/worlds/obstacles.world
+
+
+
+25/11/2024
+
+ros2 run teleop_twist_keyboard --ros-args -r /cmd_vel:=diff_cont/cmd_vel_unstamped
+
+
+
+
