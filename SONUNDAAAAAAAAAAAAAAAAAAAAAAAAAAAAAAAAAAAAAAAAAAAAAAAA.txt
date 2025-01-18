@@ -1,0 +1,14 @@
+SONUNDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+
+Josh Newans Articubot SIM GM1KTech Ubuntu 24.04 da Ros2 Jazzy ile ve de Jostick ile calisiyor.
+NASIL YAPTIM:  --------------
+
+		Jush Newansin Twister stamper ve unstamperini kullanarak,
+		Articubot launch da joystick i active ettim. Conf file da da joy code var onun da remakrlari cikar.
+		Articubotu launch ettikten sonra asagidakileri yap:
+		
+		1.ros2 run twist_stamper twist_stamper --ros-args -r cmd_vel_in:=cmd_vel_joy -r cmd_vel_out:=my_node/cmd_vel
+		2.ros2 run twist_stamper twist_unstamper --ros-args -r cmd_vel_in:=my_node/cmd_vel -r cmd_vel_out:=diff_cont/cmd_vel_unstamped
+
+	
